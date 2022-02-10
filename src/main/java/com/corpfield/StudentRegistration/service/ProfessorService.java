@@ -1,7 +1,7 @@
-package com.corpfield.StudentRegistration.Service;
+package com.corpfield.StudentRegistration.service;
 
-import com.corpfield.StudentRegistration.Dto.CreateProfessorReqDto;
-import com.corpfield.StudentRegistration.Dto.ListProfessorResDto;
+import com.corpfield.StudentRegistration.dto.CreateProfessorReqDto;
+import com.corpfield.StudentRegistration.dto.ListProfessorResDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
