@@ -1,20 +1,20 @@
-package com.corpfield.StudentRegistration.Service;
-import com.corpfield.StudentRegistration.Dto.ListStudentResDto;
-import com.corpfield.StudentRegistration.Dto.StudentCreateDto;
-import com.corpfield.StudentRegistration.Entity.Student;
-import com.corpfield.StudentRegistration.Repo.StudentRepo;
+package com.corpfield.StudentRegistration.service;
+import com.corpfield.StudentRegistration.dto.ListStudentResDto;
+import com.corpfield.StudentRegistration.dto.StudentCreateReqDto;
+import com.corpfield.StudentRegistration.entity.Student;
+import com.corpfield.StudentRegistration.repo.StudentRepo;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.corpfield.StudentRegistration.Dao.StudentDao;
+import com.corpfield.StudentRegistration.dao.StudentDao;
 import java.util.ArrayList;
 import java.util.List;
+import static com.corpfield.StudentRegistration.utils.QueryUtils.ConvertObjToString;
 
-import static com.corpfield.StudentRegistration.Utils.QueryUtils.ConvertObjToString;
-
-
+@Data
 @Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
@@ -23,7 +23,7 @@ public class StudentServiceImpl implements StudentService {
     StudentDao studentDao;
 
     @Override
-    public void createStudent(StudentCreateDto reqDto) {
+    public void createStudent(StudentCreateReqDto reqDto) {
         try {
             Student student = new Student();
             student.setStudentName(reqDto.getStudentName());

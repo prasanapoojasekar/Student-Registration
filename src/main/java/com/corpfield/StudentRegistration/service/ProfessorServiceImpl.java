@@ -5,6 +5,7 @@ import com.corpfield.StudentRegistration.dto.CreateProfessorReqDto;
 import com.corpfield.StudentRegistration.dto.ListProfessorResDto;
 import com.corpfield.StudentRegistration.entity.Professor;
 import com.corpfield.StudentRegistration.repo.ProfessorRepo;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.corpfield.StudentRegistration.utils.QueryUtils.ConvertObjToString;
-
+@Data
 @Service
 public class ProfessorServiceImpl implements ProfessorService {
 

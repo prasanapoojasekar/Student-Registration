@@ -1,10 +1,9 @@
-package com.corpfield.StudentRegistration.dao.dto;
+package com.corpfield.StudentRegistration.dto;
 
 import lombok.Data;
 
 @Data
-public class CreateProfessorReqDto {
-    private long professorId;
+public class ListProfessorResDto {
     private String professorName;
     private String professorAge;
     private String professorMail;

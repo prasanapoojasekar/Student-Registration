@@ -1,4 +1,4 @@
-package com.corpfield.StudentRegistration.Entity;
+package com.corpfield.StudentRegistration.entity;
 
 import lombok.Data;
 
