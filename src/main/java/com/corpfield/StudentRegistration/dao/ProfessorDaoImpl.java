@@ -1,4 +1,4 @@
-package com.corpfield.StudentRegistration.Dao;
+package com.corpfield.StudentRegistration.dao;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

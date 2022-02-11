@@ -1,8 +1,8 @@
-package com.corpfield.StudentRegistration.Controller;
+package com.corpfield.StudentRegistration.controller;
 
-import com.corpfield.StudentRegistration.Dto.CreateProfessorReqDto;
-import com.corpfield.StudentRegistration.Dto.ListProfessorResDto;
-import com.corpfield.StudentRegistration.Service.ProfessorService;
+import com.corpfield.StudentRegistration.dto.CreateProfessorReqDto;
+import com.corpfield.StudentRegistration.dto.ListProfessorResDto;
+import com.corpfield.StudentRegistration.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,13 +20,13 @@ public class ProfessorController {
     @Autowired
     ProfessorService myProfessorService;
 
-    @PostMapping("/createProfessorDetails")
+    @PostMapping("/professors")
     public ResponseEntity<String> createProfessorDetails(@RequestBody CreateProfessorReqDto requestDto){
         myProfessorService.createProfessorDetails(requestDto);
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
-    @GetMapping("/getPagedProfessorsList")
+    @GetMapping("/professors")
     public ResponseEntity<Page<ListProfessorResDto>> getPagedProfessorsList(
             @PageableDefault(size = 5) Pageable pageable
     ){

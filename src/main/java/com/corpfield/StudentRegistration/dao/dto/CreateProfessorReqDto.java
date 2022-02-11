@@ -1,4 +1,4 @@
-package com.corpfield.StudentRegistration.Dto;
+package com.corpfield.StudentRegistration.dao.dto;
 
 import lombok.Data;
 

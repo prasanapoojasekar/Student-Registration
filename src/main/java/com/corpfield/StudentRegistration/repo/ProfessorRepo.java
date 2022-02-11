@@ -1,6 +1,6 @@
-package com.corpfield.StudentRegistration.Repo;
+package com.corpfield.StudentRegistration.repo;
 
-import com.corpfield.StudentRegistration.Entity.Professor;
+import com.corpfield.StudentRegistration.entity.Professor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

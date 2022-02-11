@@ -1,10 +1,10 @@
-package com.corpfield.StudentRegistration.Service;
+package com.corpfield.StudentRegistration.service;
 
-import com.corpfield.StudentRegistration.Dao.ProfessorDao;
-import com.corpfield.StudentRegistration.Dto.CreateProfessorReqDto;
-import com.corpfield.StudentRegistration.Dto.ListProfessorResDto;
-import com.corpfield.StudentRegistration.Entity.Professor;
-import com.corpfield.StudentRegistration.Repo.ProfessorRepo;
+import com.corpfield.StudentRegistration.dao.ProfessorDao;
+import com.corpfield.StudentRegistration.dto.CreateProfessorReqDto;
+import com.corpfield.StudentRegistration.dto.ListProfessorResDto;
+import com.corpfield.StudentRegistration.entity.Professor;
+import com.corpfield.StudentRegistration.repo.ProfessorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.corpfield.StudentRegistration.Utils.QueryUtils.ConvertObjToString;
+import static com.corpfield.StudentRegistration.utils.QueryUtils.ConvertObjToString;
 
 @Service
 public class ProfessorServiceImpl implements ProfessorService {
