@@ -58,7 +58,7 @@ public class CourseDaoImpl implements CourseDao{
         String myQuery = "select " +
                 "count(*) "+
                 "from course "+
-                "inner join professors on professors.professor_id= course.course_id "+
+                "inner join professors on professors.professor_id= course.professor_id "+
                 "where professors.professor_id = :professorId ";
         Query query=em.createNativeQuery(myQuery);
         query.setParameter("professorId",professorId);
