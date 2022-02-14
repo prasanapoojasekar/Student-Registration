@@ -69,6 +69,31 @@ public class StudentCourseServiceImpl implements  StudentCourseService {
         }
         return obj;
     }
+    @Override
+    public Page<ListStudentCourseResDto>getStudentCourseByStudentId(Pageable pageable, long studentId){
+        try{
+            List<Object[]>query = myStudentCourseDao.getStudentCourseWithStudentId(pageable, studentId);
+            int totalStudentCourseById = myStudentCourseDao.getTotalStudentCourseById(studentId);
+            List<ListStudentCourseResDto> studentCourse = getStudentCourseById(query);
+            Page<ListStudentCourseResDto>PagedStudentCourse = new PageImpl<>(studentCourse, pageable, totalStudentCourseById);
+            return PagedStudentCourse;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+
+        }
+    }
+
+    private List<ListStudentCourseResDto> getStudentCourseById(List<Object[]> query) {
+        List<ListStudentCourseResDto>obj = new ArrayList<>();
+        for(Object[] row : query ){
+            ListStudentCourseResDto dto = new ListStudentCourseResDto();
+            dto.setStudentCourseName(ConvertObjToString(row [0]));
+            dto.setStudentName(ConvertObjToString(row [1]));
+            obj.add(dto);
+        }
+        return obj;
+    }
 }
 
 

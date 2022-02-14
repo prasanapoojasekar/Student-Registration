@@ -35,8 +35,32 @@ public class StudentCourseDaoImpl implements StudentCourseDao{
         Query query=em.createNativeQuery(myQuery);
         String result = String.valueOf (query.getSingleResult());
         return Integer.parseInt(result);
-
-
+    }
+    @Override
+    public  List<Object[]>getStudentCourseWithStudentId(Pageable pageable, long studentId){
+        String myQuery = "select " +
+                "student_course.student_course_name, " +
+                "students.student_name " +
+                "from student_course " +
+                "inner join students on students.student_id =student_course.student_id "+
+                "where students.student_id = :studentId ";
+        Query query=em.createNativeQuery(myQuery);
+        query.setParameter("studentId",studentId);
+        query.setFirstResult(pageable.getPageNumber()*pageable.getPageSize());
+        query.setMaxResults(pageable.getPageSize());
+        return query.getResultList();
+    }
+    @Override
+    public int getTotalStudentCourseById(long studentId){
+        String myQuery = "select " +
+                "count(*) " +
+                "from student_course " +
+                "inner join students on students.student_id =student_course.student_id " +
+                "where students.student_id = :studentId ";
+        Query query=em.createNativeQuery(myQuery);
+        query.setParameter("studentId",studentId );
+        String result = String.valueOf (query.getSingleResult());
+        return Integer.parseInt(result);
     }
 }
 

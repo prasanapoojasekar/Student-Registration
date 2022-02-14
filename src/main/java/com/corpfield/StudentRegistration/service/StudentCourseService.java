@@ -10,4 +10,6 @@ public interface StudentCourseService {
 
     Page<ListStudentCourseResDto> getPagedStudentCourseList(Pageable pageable);
 
+    Page<ListStudentCourseResDto> getStudentCourseByStudentId(Pageable pageable, long studentId);
+
 }

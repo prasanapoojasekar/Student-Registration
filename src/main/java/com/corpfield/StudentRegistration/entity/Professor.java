@@ -10,16 +10,16 @@ import javax.persistence.*;
 public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Professor_id")
+    @Column(name = "professor_id")
     private long professorId;
 
-    @Column(name = "Professor_name")
+    @Column(name = "professor_name")
     private String professorName;
 
-    @Column(name = "Professor_age")
+    @Column(name = "professor_age")
     private String professorAge;
 
-    @Column(name = "Professor_mail")
+    @Column(name = "professor_mail")
     private String professorMail;
 
     @Column(name = "professor_Number")
