@@ -3,6 +3,7 @@ package com.corpfield.StudentRegistration.service;
 import com.corpfield.StudentRegistration.dto.CreateCourseReqDto;
 import com.corpfield.StudentRegistration.dto.ListCourseResDto;
 import com.corpfield.StudentRegistration.dto.ListProfessorResDto;
+import com.corpfield.StudentRegistration.dto.responseDto.ResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,6 +14,6 @@ public interface CourseService {
 
     Page<ListCourseResDto> getPagedCourseList(Pageable pageable);
 
-    Page<ListCourseResDto> getCourseByProfessorId(Pageable pageable,long professorId);
+    ResponseDto getCourseByProfessorId(Pageable pageable, long professorId);
 
 }

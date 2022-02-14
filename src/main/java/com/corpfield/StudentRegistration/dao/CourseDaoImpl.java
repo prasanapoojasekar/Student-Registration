@@ -55,7 +55,7 @@ public class CourseDaoImpl implements CourseDao{
 
     @Override
     public int getTotalCourseById(long professorId){
-        String myQuery = "select " +
+        String myQuery = "select "+
                 "count(*) "+
                 "from course "+
                 "inner join professors on professors.professor_id= course.professor_id "+

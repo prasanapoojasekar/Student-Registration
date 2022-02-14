@@ -1,8 +1,10 @@
 package com.corpfield.StudentRegistration.service;
 
+import com.corpfield.StudentRegistration.constants.ResponseCodes;
 import com.corpfield.StudentRegistration.dao.CourseDao;
 import com.corpfield.StudentRegistration.dto.CreateCourseReqDto;
 import com.corpfield.StudentRegistration.dto.ListCourseResDto;
+import com.corpfield.StudentRegistration.dto.responseDto.ResponseDto;
 import com.corpfield.StudentRegistration.entity.Course;
 import com.corpfield.StudentRegistration.entity.Professor;
 import com.corpfield.StudentRegistration.repo.CourseRepo;
@@ -71,16 +73,19 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Page<ListCourseResDto> getCourseByProfessorId(Pageable pageable,long professorId) {
+    public ResponseDto getCourseByProfessorId(Pageable pageable, long professorId) {
         try {
+            if(professorId<1){
+                return new ResponseDto("Invalid professor id",ResponseCodes.INVALID_INPUT);
+            }
             List<Object[]> query = myCourseDao.getCourseWithProfessorId(pageable,professorId);
             int totalCourseById = myCourseDao.getTotalCourseById(professorId);
             List<ListCourseResDto> course = getCourseById(query);
             Page<ListCourseResDto> pagedCourse = new PageImpl<>(course, pageable, totalCourseById);
-            return pagedCourse;
+            return new ResponseDto(pagedCourse,ResponseCodes.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return new ResponseDto(null,ResponseCodes.SERVER_ERROR);
         }
     }
     private List<ListCourseResDto>getCourseById(List<Object[]>query){
@@ -93,7 +98,6 @@ public class CourseServiceImpl implements CourseService {
         }
         return obj;
     }
-
 }
 
 
