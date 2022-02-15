@@ -6,6 +6,7 @@ import com.corpfield.StudentRegistration.dto.CreateProfessorReqDto;
 import com.corpfield.StudentRegistration.dto.ListProfessorResDto;
 import com.corpfield.StudentRegistration.dto.responseDto.ResponseDto;
 import com.corpfield.StudentRegistration.entity.Professor;
+import com.corpfield.StudentRegistration.exceptions.ServiceException;
 import com.corpfield.StudentRegistration.repo.ProfessorRepo;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +52,7 @@ public class ProfessorServiceImpl implements ProfessorService {
             Page<ListProfessorResDto> pagedProf = new PageImpl<>(professors, pageable, totalProfessors);
             return new ResponseDto(pagedProf,ResponseCodes.SUCCESS);
         } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseDto("Oops! Error in server we are looking into it", ResponseCodes.SERVER_ERROR);
+            return ServiceException.sendErrorResponse(e);
         }
     }
     private List<ListProfessorResDto>getProfessorList(List<Object[]>query){

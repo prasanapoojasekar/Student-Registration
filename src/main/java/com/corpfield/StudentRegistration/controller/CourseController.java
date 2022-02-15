@@ -22,7 +22,7 @@ public class CourseController {
     @PostMapping("/course")
     public ResponseEntity<String>createCourseDetails(@RequestBody CreateCourseReqDto reqDto){
         myCourseService.createCourseDetails(reqDto);
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+        return new ResponseEntity<>("Course details created successfully", HttpStatus.OK);
     }
 
     @GetMapping("/course")

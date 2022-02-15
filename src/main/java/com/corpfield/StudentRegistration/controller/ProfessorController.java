@@ -25,7 +25,7 @@ public class ProfessorController {
     @PostMapping("/professors")
     public ResponseEntity<String> createProfessorDetails(@RequestBody CreateProfessorReqDto requestDto){
         myProfessorService.createProfessorDetails(requestDto);
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+        return new ResponseEntity<>("Professors details created successfully", HttpStatus.OK);
     }
 
     @GetMapping("/professors")

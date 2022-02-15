@@ -7,6 +7,7 @@ import com.corpfield.StudentRegistration.dto.ListCourseResDto;
 import com.corpfield.StudentRegistration.dto.responseDto.ResponseDto;
 import com.corpfield.StudentRegistration.entity.Course;
 import com.corpfield.StudentRegistration.entity.Professor;
+import com.corpfield.StudentRegistration.exceptions.ServiceException;
 import com.corpfield.StudentRegistration.repo.CourseRepo;
 import com.corpfield.StudentRegistration.repo.ProfessorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +58,7 @@ public class CourseServiceImpl implements CourseService {
             Page<ListCourseResDto> pagedCourse = new PageImpl<>(course, pageable, totalCourse);
             return new ResponseDto(pagedCourse,ResponseCodes.SUCCESS);
         } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseDto("Oops! Error in server we are looking into it",ResponseCodes.SERVER_ERROR);
+            return ServiceException.sendErrorResponse(e);
         }
     }
     private List<ListCourseResDto>getCourseList(List<Object[]>query){
@@ -76,7 +76,7 @@ public class CourseServiceImpl implements CourseService {
     public ResponseDto getCourseByProfessorId(Pageable pageable, long professorId) {
         try {
             if(professorId<1){
-                return new ResponseDto("Invalid professor id",ResponseCodes.INVALID_INPUT);
+                throw new ServiceException("Please enter a valid user id");
             }
             List<Object[]> query = myCourseDao.getCourseWithProfessorId(pageable,professorId);
             int totalCourseById = myCourseDao.getTotalCourseById(professorId);
@@ -84,8 +84,7 @@ public class CourseServiceImpl implements CourseService {
             Page<ListCourseResDto> pagedCourse = new PageImpl<>(course, pageable, totalCourseById);
             return new ResponseDto(pagedCourse,ResponseCodes.SUCCESS);
         } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseDto("Oops! Error in server we are looking into it",ResponseCodes.SERVER_ERROR);
+            return ServiceException.sendErrorResponse(e);
         }
     }
     private List<ListCourseResDto>getCourseById(List<Object[]>query){
