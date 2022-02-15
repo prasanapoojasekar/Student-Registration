@@ -49,16 +49,16 @@ public class CourseServiceImpl implements CourseService {
         }
     }
     @Override
-    public Page<ListCourseResDto> getPagedCourseList(Pageable pageable) {
+    public ResponseDto getPagedCourseList(Pageable pageable) {
         try {
             List<Object[]> query = myCourseDao.getCourseWith(pageable);
             int totalCourse = myCourseDao.getTotalCourse();
             List<ListCourseResDto> course = getCourseList(query);
             Page<ListCourseResDto> pagedCourse = new PageImpl<>(course, pageable, totalCourse);
-            return pagedCourse;
+            return new ResponseDto(pagedCourse,ResponseCodes.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return new ResponseDto("Oops! Error in server we are looking into it",ResponseCodes.SERVER_ERROR);
         }
     }
     private List<ListCourseResDto>getCourseList(List<Object[]>query){
@@ -85,7 +85,7 @@ public class CourseServiceImpl implements CourseService {
             return new ResponseDto(pagedCourse,ResponseCodes.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseDto(null,ResponseCodes.SERVER_ERROR);
+            return new ResponseDto("Oops! Error in server we are looking into it",ResponseCodes.SERVER_ERROR);
         }
     }
     private List<ListCourseResDto>getCourseById(List<Object[]>query){

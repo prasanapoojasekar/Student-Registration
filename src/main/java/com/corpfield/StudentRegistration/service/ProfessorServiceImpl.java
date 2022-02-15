@@ -1,8 +1,10 @@
 package com.corpfield.StudentRegistration.service;
 
+import com.corpfield.StudentRegistration.constants.ResponseCodes;
 import com.corpfield.StudentRegistration.dao.ProfessorDao;
 import com.corpfield.StudentRegistration.dto.CreateProfessorReqDto;
 import com.corpfield.StudentRegistration.dto.ListProfessorResDto;
+import com.corpfield.StudentRegistration.dto.responseDto.ResponseDto;
 import com.corpfield.StudentRegistration.entity.Professor;
 import com.corpfield.StudentRegistration.repo.ProfessorRepo;
 import lombok.Data;
@@ -41,16 +43,16 @@ public class ProfessorServiceImpl implements ProfessorService {
     }
 
     @Override
-    public Page<ListProfessorResDto> getPagedProfessorsList(Pageable pageable) {
+    public ResponseDto getPagedProfessorsList(Pageable pageable) {
         try {
             List<Object[]> query = myProfessorDao.getProfessorWith(pageable);
             int totalProfessors = myProfessorDao.getTotalProfessors();
             List<ListProfessorResDto> professors = getProfessorList(query);
             Page<ListProfessorResDto> pagedProf = new PageImpl<>(professors, pageable, totalProfessors);
-            return pagedProf;
+            return new ResponseDto(pagedProf,ResponseCodes.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return new ResponseDto("Oops! Error in server we are looking into it", ResponseCodes.SERVER_ERROR);
         }
     }
     private List<ListProfessorResDto>getProfessorList(List<Object[]>query){

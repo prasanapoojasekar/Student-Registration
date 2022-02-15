@@ -12,7 +12,7 @@ import java.util.List;
 public interface CourseService {
     void createCourseDetails(CreateCourseReqDto reqDto);
 
-    Page<ListCourseResDto> getPagedCourseList(Pageable pageable);
+    ResponseDto getPagedCourseList(Pageable pageable);
 
     ResponseDto getCourseByProfessorId(Pageable pageable, long professorId);
 

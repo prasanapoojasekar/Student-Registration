@@ -26,11 +26,11 @@ public class CourseController {
     }
 
     @GetMapping("/course")
-    public ResponseEntity<Page<ListCourseResDto>> getPagedCourseList(
-            @PageableDefault(size = 5) Pageable pageable
+    public ResponseEntity<ResponseDto> getPagedCourseList(
+            @PageableDefault(size = CommonConstants.DEFAULT_PAGE_SIZE) Pageable pageable
     ){
-        Page<ListCourseResDto> course = myCourseService.getPagedCourseList(pageable);
-        return new ResponseEntity<>(course, HttpStatus.OK);
+        ResponseDto course = myCourseService.getPagedCourseList(pageable);
+        return new ResponseEntity<>(course, HttpStatus.valueOf(course.getStatus()));
     }
 
     @GetMapping("/course/{professorId}")
