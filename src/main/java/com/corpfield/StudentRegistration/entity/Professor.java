@@ -22,6 +22,6 @@ public class Professor {
     @Column(name = "professor_mail")
     private String professorMail;
 
-    @Column(name = "professor_Number")
+    @Column(name = "professor_number")
     private String professorNumber;
 }
