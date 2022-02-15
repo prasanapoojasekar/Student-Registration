@@ -1,7 +1,9 @@
 package com.corpfield.StudentRegistration.controller;
 
+import com.corpfield.StudentRegistration.constants.CommonConstants;
 import com.corpfield.StudentRegistration.dto.CreateStudentCourseReqDto;
 import com.corpfield.StudentRegistration.dto.ListStudentCourseResDto;
+import com.corpfield.StudentRegistration.dto.responseDto.ResponseDto;
 import com.corpfield.StudentRegistration.service.StudentCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,11 +32,11 @@ public class StudentCourseController {
         return new ResponseEntity<>(studentCourse, HttpStatus.OK);
     }
     @GetMapping("/studentCourse/{studentId}")
-    public  ResponseEntity<Page<ListStudentCourseResDto>>getStudentCourseByStudentId(
-            @PageableDefault(size = 5) Pageable pageable,
+    public  ResponseEntity<ResponseDto>getStudentCourseByStudentId(
+            @PageableDefault(size = CommonConstants.DEFAULT_PAGE_SIZE) Pageable pageable,
             @RequestParam("student_id")long studentId
     ){
-        Page<ListStudentCourseResDto> studentCourse = myStudentCourseService.getStudentCourseByStudentId(pageable,studentId);
-        return  new ResponseEntity<>(studentCourse, HttpStatus.OK);
+        ResponseDto response = myStudentCourseService.getStudentCourseByStudentId(pageable,studentId);
+        return  new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 }
