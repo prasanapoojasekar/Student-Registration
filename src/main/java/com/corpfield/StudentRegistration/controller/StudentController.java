@@ -1,7 +1,9 @@
 package com.corpfield.StudentRegistration.controller;
 
+import com.corpfield.StudentRegistration.constants.CommonConstants;
 import com.corpfield.StudentRegistration.dto.ListStudentResDto;
 import com.corpfield.StudentRegistration.dto.StudentCreateReqDto;
+import com.corpfield.StudentRegistration.dto.responseDto.ResponseDto;
 import com.corpfield.StudentRegistration.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,16 +23,16 @@ public class StudentController {
     @PostMapping("/student")
     public ResponseEntity<String> createStudent(@RequestBody StudentCreateReqDto reqDto) {
         myStudentService.createStudent(reqDto);
-        return new ResponseEntity<>("ok", HttpStatus.OK);
+        return new ResponseEntity<>("studentCourse details created successfully", HttpStatus.OK);
     }
 
     @GetMapping("/students")
-    public ResponseEntity<Page<ListStudentResDto>> getPagedStudentsList(
-            @PageableDefault(size = 5) Pageable pageable
+    public ResponseEntity<ResponseDto> getPagedStudentsList(
+            @PageableDefault(size = CommonConstants.DEFAULT_PAGE_SIZE) Pageable pageable
 
     ) {
-        Page<ListStudentResDto> users = myStudentService.getPagedStudentsList(pageable);
-        return new ResponseEntity<>(users, HttpStatus.OK);
+         ResponseDto users = (ResponseDto) myStudentService.getPagedStudentsList(pageable);
+        return new ResponseEntity<>(users,  HttpStatus.valueOf(users.getStatus()));
     }
 
 }

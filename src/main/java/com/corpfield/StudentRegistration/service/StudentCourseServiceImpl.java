@@ -7,6 +7,7 @@ import com.corpfield.StudentRegistration.dto.ListStudentCourseResDto;
 import com.corpfield.StudentRegistration.dto.responseDto.ResponseDto;
 import com.corpfield.StudentRegistration.entity.Student;
 import com.corpfield.StudentRegistration.entity.StudentCourse;
+import com.corpfield.StudentRegistration.exceptions.ServiceException;
 import com.corpfield.StudentRegistration.repo.StudentCourseRepo;
 import com.corpfield.StudentRegistration.repo.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,16 +49,15 @@ public class StudentCourseServiceImpl implements  StudentCourseService {
     }
 
     @Override
-    public Page<ListStudentCourseResDto> getPagedStudentCourseList(Pageable pageable) {
+    public ResponseDto getPagedStudentCourseList(Pageable pageable) {
         try {
             List<Object[]> query = myStudentCourseDao.getStudentCourseWith(pageable);
             int totalStudentCourse = myStudentCourseDao.getTotalStudentCourse();
             List<ListStudentCourseResDto> studentCourse = getStudentCourseList(query);
             Page<ListStudentCourseResDto> pagedStudentCourse = new PageImpl<>(studentCourse, pageable, totalStudentCourse);
-            return pagedStudentCourse;
+            return new ResponseDto( pagedStudentCourse, ResponseCodes.SUCCESS);
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            return ServiceException.sendErrorResponse(e);
         }
     }
 
@@ -75,7 +75,7 @@ public class StudentCourseServiceImpl implements  StudentCourseService {
     public ResponseDto getStudentCourseByStudentId(Pageable pageable, long studentId){
         try{
             if(studentId<1){
-                return  new ResponseDto("Invalid student id", ResponseCodes.INVALID_INPUT);
+                throw new ServiceException("Please enter a valid user id");
             }
             List<Object[]>query = myStudentCourseDao.getStudentCourseWithStudentId(pageable, studentId);
             int totalStudentCourseById = myStudentCourseDao.getTotalStudentCourseById(studentId);
@@ -84,7 +84,7 @@ public class StudentCourseServiceImpl implements  StudentCourseService {
             return new ResponseDto(pagedStudentCourse,ResponseCodes.SUCCESS);
         }catch(Exception e){
             e.printStackTrace();
-            return new ResponseDto(null,ResponseCodes.SERVER_ERROR);
+            return ServiceException.sendErrorResponse(e);
 
         }
     }

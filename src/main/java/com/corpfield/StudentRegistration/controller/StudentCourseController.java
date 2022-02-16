@@ -22,14 +22,14 @@ public class StudentCourseController {
     @PostMapping("/studentCourse")
     public ResponseEntity<String>createStudentCourse(@RequestBody CreateStudentCourseReqDto reqDto){
         myStudentCourseService.createStudentCourse(reqDto);
-        return  new ResponseEntity<>("OK", HttpStatus.OK);
+        return  new ResponseEntity<>("studentCourse details created successfully", HttpStatus.OK);
     }
     @GetMapping("/studentCourse")
-    public ResponseEntity<Page<ListStudentCourseResDto>>getPagedStudentCourseList(
-            @PageableDefault(size = 5) Pageable pageable
+    public ResponseEntity<ResponseDto>getPagedStudentCourseList(
+            @PageableDefault(size =CommonConstants.DEFAULT_PAGE_SIZE) Pageable pageable
     ){
-        Page<ListStudentCourseResDto> studentCourse = myStudentCourseService.getPagedStudentCourseList(pageable);
-        return new ResponseEntity<>(studentCourse, HttpStatus.OK);
+        ResponseDto studentCourse = myStudentCourseService.getPagedStudentCourseList(pageable);
+        return new ResponseEntity<>(studentCourse, HttpStatus.valueOf(studentCourse.getStatus()));
     }
     @GetMapping("/studentCourse/{studentId}")
     public  ResponseEntity<ResponseDto>getStudentCourseByStudentId(

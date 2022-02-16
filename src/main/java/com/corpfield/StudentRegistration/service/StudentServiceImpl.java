@@ -1,7 +1,10 @@
 package com.corpfield.StudentRegistration.service;
+import com.corpfield.StudentRegistration.constants.ResponseCodes;
 import com.corpfield.StudentRegistration.dto.ListStudentResDto;
 import com.corpfield.StudentRegistration.dto.StudentCreateReqDto;
+import com.corpfield.StudentRegistration.dto.responseDto.ResponseDto;
 import com.corpfield.StudentRegistration.entity.Student;
+import com.corpfield.StudentRegistration.exceptions.ServiceException;
 import com.corpfield.StudentRegistration.repo.StudentRepo;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +39,16 @@ public class StudentServiceImpl implements StudentService {
         }
     }
     @Override
-    public Page<ListStudentResDto>getPagedStudentsList(Pageable pageable){
+    public ResponseDto getPagedStudentsList(Pageable pageable){
         try{
             List<Object[]> query = studentDao.getStudentWith(pageable);
             int totalStudents = studentDao.getTotalStudents();
             List<ListStudentResDto> students = getStudentList(query);
             Page<ListStudentResDto> pagedStudents = new PageImpl<>(students, pageable, totalStudents);
-            return pagedStudents;
+            return new ResponseDto(pagedStudents, ResponseCodes.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return ServiceException.sendErrorResponse(e);
         }
 
     }

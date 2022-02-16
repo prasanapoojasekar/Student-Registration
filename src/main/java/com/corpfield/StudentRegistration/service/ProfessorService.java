@@ -8,8 +8,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface ProfessorService {
     void createProfessorDetails(CreateProfessorReqDto requestDto);
-
-
-
     ResponseDto getPagedProfessorsList(Pageable pageable);
 }
